@@ -16,7 +16,7 @@ webpackConfig.output = {
 
 webpackConfig.plugins = [
   new HtmlWebpackPlugin({
-    title: '401d23 Reddit App'
+    title: '401d23 Reddit App',
   }),
 ];
 
@@ -30,7 +30,7 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.js$/,
-    exlude: /node_modules/,
+    exclude: /node_modules/,
     use: {
       loader: 'babel-loader',
       options: {

@@ -3,26 +3,32 @@ import { render as reactDomReader } from 'react-dom';
 import superagent from 'superagent';
 import './style/main.scss';
 
-const apiUrl = 'www.http://reddit.com/r';
+const apiUrl = 'http://www.reddit.com/r';
 
 class RedditSearchForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redditName: '',
+      redditFormBoard: '',
+      redditFormLimit: '',
     };
 
-    this.handleRedditNameChange = this.handleRedditNameChange.bind(this);
+    this.handleRedditChange = this.handleRedditChange.bind(this);
+    this.handleRedditFormLimitChange = this.handleRedditFormLimitChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleRedditNameChange(event) {
-    this.setState({ redditName: event.target.value });
+  handleRedditChange(event) {
+    this.setState({ redditFormBoard: event.target.value });
+  }
+
+  handleRedditFormLimitChange(event) {
+    this.setState({ redditFormLimit: event.target.value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.redditSelect(this.state.redditName);
+    this.props.redditSelect(this.state.redditFormBoard, this.state.redditFormLimit);
   }
 
   render() {
@@ -31,9 +37,9 @@ class RedditSearchForm extends React.Component {
       <input
       type="text"
       name="redditName"
-      placeholder="Search for an Article"
-      value={this.state.redditName}
-      onChange={this.handleRedditNameChange}
+      placeholder="Search for a Forum"
+      value={this.state.redditFormBoard}
+      onChange={this.handleRedditChange}
       />
       </form>
     );
@@ -45,8 +51,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       redditLookup: {},
-      redditSelected: null,
-      redditNameError: null,
+      redditFormBoard: null,
+      redditFormLimit: null,
+      redditError: null,
     };
 
     this.redditSelect = this.redditSelect.bind(this);
